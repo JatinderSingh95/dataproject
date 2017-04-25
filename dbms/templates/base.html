@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+<body bgcolor="#90EE90">
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Django Simple Login{% endblock %}</title>
+  <title>{% block title %}Data base Project{% endblock %}</title>
 </head>
 <body>
   <header>
-    <h1>Django Project</h1>
+    <h1>Data base Project</h1>
     {% if user.is_authenticated %}
       Hi {{ user.username }}!
       <a href="{% url 'logout' %}">logout</a>

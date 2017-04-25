@@ -22,7 +22,7 @@ def register(request):
 class ServerForm(ModelForm):
     class Meta:
         model = Server
-        fields = ['name', 'ip', 'order']
+        fields = ['name', 'ip', 'order', 'image']
 
 def server_list(request, template_name='server_list.html'):
     servers = Server.objects.all()
@@ -33,25 +33,28 @@ def server_list(request, template_name='server_list.html'):
 	
 def server_create(request, template_name='server_form.html'):
     form = ServerForm(request.POST or None)
-    if form.is_valid():
+	
+    if form.is_valid(): 
         form.save()
         return redirect('server_list')
+
+		
     return render(request, template_name, {'form':form})
 	
 	
 def server_create1(request, template_name='img.html'):
-    form = ServerForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('server_list')
-    return render(request, template_name, {'form':form})
+    servers = Server.objects.all()
+    data = {}
+    data['object_list'] = servers
+    return render(request, template_name, data)
+	
+def server_create2(request, template_name='update.html'):
+    servers = Server.objects.all()
+    data = {}
+    data['object_list'] = servers
+    return render(request, template_name, data)
 
-def server_create2(request, template_name='img1.html'):
-    form = ServerForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('server_list')
-    return render(request, template_name, {'form':form})
+
 	
 def server_update(request, pk, template_name='server_form.html'):
     server = get_object_or_404(Server, pk=pk)
